@@ -16,13 +16,19 @@ defmodule BambooWeb.Router do
   scope "/", BambooWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    #get "/", PageController, :index
+    delete "/auth/logout", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BambooWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", BambooWeb do
+    pipe_through :api
+
+    resources "/", UserController, except: [:new, :edit]
+    # get "/users", UserController, :index
+    # get "/users/:id", UserController, :show
+    post "/auth/login", SessionController, :new
+  end
 
   # Enables LiveDashboard only for development
   #

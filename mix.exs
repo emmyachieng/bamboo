@@ -46,7 +46,11 @@ defmodule Bamboo.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.8"},
-      {:poison, "~> 5.0"}
+      {:poison, "~> 5.0"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:pbkdf2_elixir, "~> 0.12"},
+      {:secure_random, "~> 0.5"}
     ]
   end
 
