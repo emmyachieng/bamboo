@@ -2,7 +2,7 @@ defmodule Bamboo.Token do
   @moduledoc """
     Implement token module
   """
-  @signing_salt "w5g8I3+q"
+  @signing_salt System.get_env("SIGNING_SALT") || "secret"
 
   # token for 12 hours
   @token_age_secs 43200
@@ -11,7 +11,8 @@ defmodule Bamboo.Token do
   Create token for given data
   """
   def sign(data) do
-    Phoenix.Token.sign(BambooWeb.Endpoint, @signing_salt, data)
+    signing_salt = System.get_env("SIGNING_SALT")
+    Phoenix.Token.sign(BambooWeb.Endpoint, signing_salt, data)
   end
 
    @doc """
@@ -20,7 +21,8 @@ defmodule Bamboo.Token do
   - Verify expiration time
   """
   def verify(token) do
-    case Phoenix.Token.verify(BambooWeb.Endpoint, @signing_salt, token, max_age: @token_age_secs) do
+    signing_salt = System.get_env("SIGNING_SALT")
+    case Phoenix.Token.verify(BambooWeb.Endpoint, signing_salt, token, max_age: @token_age_secs) do
       {:ok, data} -> {:ok, data}
       _error -> {:error, :unauthorized}
     end
