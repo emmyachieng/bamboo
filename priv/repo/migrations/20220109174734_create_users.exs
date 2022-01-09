@@ -4,13 +4,10 @@ defmodule Bamboo.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :email, :string
-      add :password, :string
-      add :api_token, :string
+      add :password_hashed, :string
 
       timestamps()
     end
 
-    create unique_index(:users, [:email])
-    create unique_index(:users, [:api_token])
   end
 end

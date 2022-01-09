@@ -16,7 +16,8 @@ defmodule BambooWeb.Router do
   scope "/", BambooWeb do
     pipe_through :browser
 
-    #get "/", PageController, :index
+    get "/", PageController, :index
+    resources "/users", UserController, only: [:new, :create]
     delete "/auth/logout", SessionController, :delete
   end
 
@@ -24,9 +25,10 @@ defmodule BambooWeb.Router do
   scope "/api", BambooWeb do
     pipe_through :api
 
-    resources "/", UserController, except: [:new, :edit]
+    #resources "/", UserController, except: [:new, :edit, :create]
     # get "/users", UserController, :index
     # get "/users/:id", UserController, :show
+    #post "/auth/signup", UserController, :create
     post "/auth/login", SessionController, :new
   end
 

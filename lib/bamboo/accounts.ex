@@ -1,6 +1,6 @@
 defmodule Bamboo.Accounts do
   @moduledoc """
-  The Account context.
+  The Accounts context.
   """
 
   import Ecto.Query, warn: false
@@ -98,7 +98,7 @@ defmodule Bamboo.Accounts do
       %Ecto.Changeset{data: %User{}}
 
   """
-  def change_user(%User{} = user, attrs \\ %{}, _) do
+  def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
 end

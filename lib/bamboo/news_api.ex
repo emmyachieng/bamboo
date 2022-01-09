@@ -1,10 +1,18 @@
 defmodule Bamboo.NewsApi do
- @url "https://newsapi.org/v2/everything?q=tesla&from=2021-12-08&sortBy=publishedAt&apiKey=bb42ad2377854ed488b84aca59031fa3"
+  alias Bamboo.RateLimiter
+
+ @url "https://newsapi.org/v2/everything?q=tesla&from=2021-12-09&sortBy=publishedAt&apiKey=bb42ad2377854ed488b84aca59031fa3"
 
   #fetches all the news articles
   def fetch_news do
-    %{"articles" => articles} = fetch_json(@url)
+    %{ "status" => _status, "totalResults" => _results, "articles" => articles} = fetch_json(@url)
      articles
+  end
+
+  def fetch_new do
+    fetch_news()
+    |> Enum.uniq()
+    |> RateLimiter.log()
   end
 
   defp fetch_json(data) do
