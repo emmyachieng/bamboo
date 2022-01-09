@@ -8,9 +8,9 @@ defmodule BambooWeb.UserController do
   action_fallback BambooWeb.FallbackController
 
   def index(conn, _params) do
-    users = Accounts.list_users()
+    #users = Accounts.list_users()
     val = render_login()
-    render(conn, "index.json", users: users, val: val)
+    render(conn, "index.json", val: val)
   end
 
   defp render_login do

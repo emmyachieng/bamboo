@@ -2,7 +2,7 @@ defmodule Bamboo.Token do
   @moduledoc """
     Implement token module
   """
-  @signing_salt System.get_env("SIGNING_SALT") || "secret"
+  #@signing_salt System.get_env("SIGNING_SALT") || "secret"
 
   # token for 12 hours
   @token_age_secs 43200
