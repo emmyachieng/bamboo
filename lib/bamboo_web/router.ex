@@ -13,23 +13,28 @@ defmodule BambooWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug BambooWeb.Auth.Pipeline
+  end
+
   scope "/", BambooWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/users", UserController, only: [:new, :create]
-    delete "/auth/logout", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
   scope "/api", BambooWeb do
     pipe_through :api
 
-    #resources "/", UserController, except: [:new, :edit, :create]
-    # get "/users", UserController, :index
-    # get "/users/:id", UserController, :show
-    #post "/auth/signup", UserController, :create
-    post "/auth/login", SessionController, :new
+    post "/auth/signin", UserController, :signin
+    post "/auth/signup", UserController, :create
+  end
+
+  scope "/api", BambooWeb do
+    pipe_through [:api, :auth]
+
+    resources "/analysts", AnalystController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
